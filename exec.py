@@ -1,20 +1,18 @@
 from bomb import *
 
-###############Action Box###############
+#######Introduction#######
 
 newUser()
 loginRewards()
 time.sleep(1)
+intro()
 
-print(f'\nIn your search for treasures you have ended in a room with a numerical keyboard on top of a mysterious machine and a door in front of it.\n')
-time.sleep(0.5)
+#######Introduction#######
 
-print('The machine activates and says:\n"Only a Leap Year will let you go forward, but many tries you have not, type carefully or nothing will remain of you": \n#########################################\n')
-time.sleep(0.5)
+###############Action Box###############
 
 actions()
 time.sleep(1)    
-
 mainBomb ()
     
 ###############Action Box###############
