@@ -13,3 +13,4 @@ Things added:
 - Proper commands: This is an adventure game, but on the previous version you couldn't do any action. Now most actions are listed and some are Hidden. Lots of Easter Eggs.
 As a downside now the game is 20% more Shitposty.
 - "Login" rewards: Why does a text adventure game needs this? Anyway, depending on the day of the week you get a different Item and a different color on the text.
+- 10 Different Endings, wow!

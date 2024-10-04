@@ -3,13 +3,27 @@ import random, datetime, time, sys, string
 
 ###########################Special Box###########################
 
-randList = [1, 2, 3, 4, 5, 6] ##I'm gonna use this for something, but haven't decided yet.
+randList = [1, 2, 3, 4, 5, 6] #This is for the dice.
 
 date1 = datetime.date.today()
 
-datename = date1.strftime("%A")
+datename = date1.strftime("%A") #This is for the login
+
+loginBag = ["Bottle of Hornets", "Banana Phone", "Lightbulb with a Flower", "Claymore", "Fax Machine", "Blue Sea Dragon", "Armored Core"]
 
 inventory = []
+
+endingDict = {"1": "Wow! You defused the bomb. Wow you da best, woooooo, woooooo! Bomb!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+              "2": "You are dead, dead, dead.",
+              "3": "Ahhh so Eepy Sleepy",
+              "4": "No escape from the Matrix",
+              "5": "I sold my soul for $1",
+              "6": "70K Polygon Cube",
+              "7": "Straight to Hell, Michigan",
+              "8": "Duck tales, oooo ooooo!",
+              "9": "Man, why don't you want to type an Integer?",
+              "10": "You let the bomb alone :(",
+              }
 
 ###########################Special Box###########################
 
@@ -17,7 +31,7 @@ inventory = []
 
 class Commands:
     
-    def __init__(self):
+    def __init__(self): #I ended up using this class as a flag for the pick up of different items. This needs a rework, grabbing should directly check inventory not a random flag.
         self.username = ""
         self.Endings = {}
         self.pickedATM = False
@@ -38,7 +52,7 @@ In the wall to your left there is a "Wall Fountain", a "Liquid" flows from the t
 In the wall to your right there is an "ATM" that's also a Vending Machine, it looks operational.
 
 In this room there are some other objects, here's what you see:
-a "Sack of Silica Gel", an "Empty Glass Jar", "$150".''') #Only a print.
+a "Sack of Silica Gel", an "Empty Glass Jar", "$150".''')
         time.sleep(0.5)
         return
     
@@ -50,14 +64,14 @@ a "Sack of Silica Gel", an "Empty Glass Jar", "$150".''') #Only a print.
             time.sleep(5)
             print("Zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.\n\nYou slept a lot, so much that when you woke up the Mysterious Machine is deactivated, the Soor is open and there is nothing left in the room. You got nothing, but hey, at least you survived!\n")
             time.sleep(1)
-            self.Endings.update({"Alternative Ending #1":"Ahhh so Eepy Sleepy"})
+            self.Endings.update({"Alternative Ending #3":"Ahhh so Eepy Sleepy"})
             sys.exit(f'''\nListen {self.username}, i don't really know what you expected if you typed "Sleep" but yeah, you slept.
 Thank you for playing my game!^_^
 {self.Endings} Have you heard a Duck?''') #Some endings need flavor text to make players find the rest of the endings.
         else:
             print("OK, returning to main menu.\n")
             
-    def grab (self): #Working
+    def grab (self): #Sort of Working, ATM needs to be return with Toss.
         try:
             grabbing = input('''From this room, what item do you want to Grab?
 You can go back to main menu by typing "Back".
@@ -67,20 +81,25 @@ If you don't know what items are here, please go back and use "Look":
             if grabbing == "BACK":
                 print("Going back to main menu.")
                 return
+            
             elif grabbing == "MYSTERIOUS MACHINE":
                 print("The Machine is bolted to the ground, you can't pick it up!\n")
+                
             elif grabbing == "DOOR":
                 print("How are you going to pick a Door?\n")
+                
             elif grabbing == "WALL FOUNTAIN":
                 print("No, you cannot pick a fountain, i'm sorry.\n")
+                
             elif grabbing == "ATM":
                 if self.pickedATM == False:
                     print("You picked the ATM! You store it in your Backpack.")
                     inventory.append("ATM") 
                     self.pickedATM = True
                     return self.pickedATM
-                else: #Give the ability to return it to the ground
+                else: #Give the ability to return it to the ground, next version TOSS action
                     print("You already have the ATM in your Backpack!!")
+                    
             elif grabbing == "LIQUID":
                 if self.pickedJar == True:
                     print("You filled the Jar with this Liquid! You store it in your Backpack.")
@@ -98,6 +117,7 @@ If you don't know what items are here, please go back and use "Look":
                     return self.pickedSack
                 else:
                     print("You already have the Sack of Silica Gel in your Backpack!!")
+                    
             elif grabbing == "EMPTY GLASS JAR":
                 if self.pickedJar == False:
                     print("You picked the Empty Glass Jar! You store it in your Backpack.")
@@ -106,6 +126,7 @@ If you don't know what items are here, please go back and use "Look":
                     return self.pickedJar
                 else:
                     print("You already have the Empty Glass Jar in your Backpack!!")
+                    
             elif grabbing == "$150":
                 if self.picked150 == False:
                     print("You picked the $150! You store it in your Backpack.")
@@ -114,10 +135,11 @@ If you don't know what items are here, please go back and use "Look":
                     return self.picked150
                 else:
                     print("You already have the $150 in your Backpack!!")
+                    
         except Exception:
             print("You can only add stuff to your backpack that you can see. Remember to look!\nGoing back to main menu.\n")
     
-    def eat (self): #Working
+    def eat (self): #Working, could be better, could ask what item from Inventory wants to be used.
         if "Sack of Silica Gel" in inventory:
             eating = input("What do you want to eat? \n").upper()
             if eating == "SACK OF SILICA GEL":
@@ -126,7 +148,7 @@ If you don't know what items are here, please go back and use "Look":
                     print("\nHere we go!\n...")
                     time.sleep(8)
                     print("All those people telling you this shouldn't be done were wrong, now you can see through the veil of reality, trascend this existence and become a god!\n")
-                    self.Endings.update({"Bad Ending #3":"No escape from the Matrix"})
+                    self.Endings.update({"Bad Ending #4":"No escape from the Matrix"})
                     time.sleep(1)
                     sys.exit(f'''Just kidding, you died. Sorry.
                     Thank you for playing my game tho!^_^
@@ -141,7 +163,7 @@ If you don't know what items are here, please go back and use "Look":
             print("You don't have any object that can be eaten.\n")
             return
                 
-    def drink (self):
+    def drink (self): #Working, could be better, could ask what item from Inventory wants to be used.
         if "Jar with Liquid" in inventory:
             drinking = input("What do you want to drink? \n").upper()
             if drinking == "JAR WITH LIQUID":
@@ -150,7 +172,7 @@ If you don't know what items are here, please go back and use "Look":
                     print("\nHere we go!\n...")
                     time.sleep(5)
                     print("The liquid was no other than Mug Root Beer™, that's right, i want to thank my sponsor Mug Root Beer™ for helping with all the costs of this game!\n")
-                    self.Endings.update({"Mug Ending #1":"I sold my soul for $1"})
+                    self.Endings.update({"Mug Ending #5":"I sold my soul for $1"})
                     time.sleep(1)
                     sys.exit(f'''I don't know how it taste, it isn't available in my country. Also they aren't my sponsors, but if they want to give me money they can get in touch.
                     Thank you for playing my game tho!^_^
@@ -165,7 +187,7 @@ If you don't know what items are here, please go back and use "Look":
             print("You don't have any object that can be drunk.\n")
             return
     
-    def use (self):
+    def use (self): #Working, could be better, could ask what item from Inventory wants to be used.
         if "$150" in inventory:
             byeBucks = input("You can use the money in the ATM. Want to do that? Yes or No: ").capitalize()
             if byeBucks == "Yes":
@@ -175,7 +197,8 @@ If you don't know what items are here, please go back and use "Look":
                 inventory.append("Six Sided Dice")
                 print('You got a "Six Sided Dice"!\n')
             else:
-                print("Returning to main menu\n")    
+                print("Returning to main menu\n")   
+                 
         elif "ATM" in inventory:
             byeATM = input("The ATM looks breakable, would you like to throw it? Yes or No: ").capitalize()
             if byeATM == "Yes":
@@ -183,36 +206,99 @@ If you don't know what items are here, please go back and use "Look":
                 print('You smashed the ATM into the ground with all your strength!\nBetween all the wreckage you find "Magical Voucher"!')
                 inventory.append("Magical Voucher")
             else:
-                print("Returning to main menu\n")    
+                print("Returning to main menu\n")  
+                  
         elif "Six Sided Dice" in inventory:
             byeDice = input("This dice looks weird, would you like to use it? Yes or No: ").capitalize()
             if byeDice == "Yes":
                 inventory.remove("Six Sided Dice")
-                diceUp = dice() #Some sides end the game, others let you continue with a new item in your Inventory.
+                diceUp = dice() 
                 print('Something strange is about to happen!\n')
                 time.sleep(2)
-                if diceUp == 1: #Floppy with Norton
-                    ...
-                elif diceUp == 2: #Absolutely nothing, scammed
+                if diceUp == 1: 
+                    inventory.append("Floppy with Norton")
+                    print('Out of nowhere a Floppy Disk appears, it has a label that reads "Norton Antivirus 1999 Free".\nYou add it to your Inventory.')
+                    
+                elif diceUp == 2: 
                     print("You got nothing, congratulations???\n")
-                elif diceUp == 3: #Golden ping pong racket??
-                    ...
-                elif diceUp == 4: #Cube with 70k lines of code, ending
+                    
+                elif diceUp == 3: 
+                    inventory.append("Golden Ping Pong Racket")
+                    print("Out of nowhere a Golden Ping Pong Racket appears, sadly it does nothing in this version of the game :( \n")
+                    
+                elif diceUp == 4: 
                     print("A magical cube appears out of nowhere, it starts spinning and suddenly numbers appear on your screen?\n")
                     for n in range(70000):
-                        print(f"Wow, you got a {n}!")
-                elif diceUp == 5: #ATM and $150 returned to Inventory, so you can loop the dice.
-                    ...        
-                elif diceUp == 6: #Hell, ending
-                    print(f"You go to Hell.")
+                        if (n % 2) == 0:
+                            print(f"Wow, you got a {n}! ( ╯°□°)╯ ┻━━┻ \n")
+                        else:
+                            print(f"Wow, you got a {n}! (╮°-°)╮┳━━┳ \n")
+                    self.Endings.update({"Dice Ending #6":"70K Polygon Cube"})
+                    sys.exit(f'''\nThis is actually an easter egg proposed from a friend. My ASCII skills are not good enough to make a Cube, so pretend something like that appeared over there.
+                    Thank you for playing my game!^_^
+                    {self.Endings}''')
+                                
+                elif diceUp == 5: #When i change this hole inventory flag thing, i must also change it here.
+                    self.pickedATM = False
+                    self.picked150 = False
+                    print("The dice spawns again on the floor $150 and the ATM!\n")
+                    
+                elif diceUp == 6:
+                    self.Endings.update({"Dice Ending #7":"Straight to Hell, Michigan"})
+                    sys.exit(f'''\nYou go to Hell. Hell, Michigan. You don't know where that is on the map, you are lost.
+                    Thank you for playing my game!^_^
+                    {self.Endings}''')
             else:
-                print("Returning to main menu\n")                
+                print("Returning to main menu\n")   
+                             
         elif "Magical Voucher" in inventory:
             byeATM = input('"This voucher lets you exchange a login reward for any other reward"\nYou have no idea what this means, would you like to use it? Yes or No: ').capitalize()
-            if byeATM == "Yes":#I need to think how to pull this off.
-                inventory.remove("Magical Voucher")
-                print('...')
-                inventory.append("Magical Voucher")
+            if byeATM == "Yes":
+                voucher = input(f'Changing {inventory[0]} to any item from {loginBag}\nType the name of the item: \n').upper()
+                
+                if voucher == "BOTTLE OF HORNETS":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Bottle of Hornets")
+                    
+                elif voucher == "BANANA PHONE":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Banana Phone")
+                    
+                elif voucher == "LIGHTBULB WITH A FLOWER":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Lightbulb with a Flower")
+                    
+                elif voucher == "CLAYMORE":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Claymore")
+                    
+                elif voucher == "FAX MACHINE":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Fax Machine")
+                    
+                elif voucher == "BLUE SEA DRAGON":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Blue Sea Dragon")
+                    
+                elif voucher == "ARMORED CORE":
+                    inventory.pop(0)
+                    print(f"Adding {voucher} to your Inventory!\n")
+                    inventory.remove("Magical Voucher")
+                    inventory.append("Armored Core")
+                else:
+                    print("That item isn't a Login Reward. Returning to main menu.\n")
             else:
                 print("Returning to main menu\n")
         else:
@@ -226,14 +312,14 @@ If you don't know what items are here, please go back and use "Look":
         if self.quackCounter == 5:
             time.sleep(2)
             print(f"Out of nowhere, thousands of ducks appear, they quack, they quack a lot.\nThey take you with them to their duck village.\nNow you live with them, i guess?")
-            self.Endings.update({"Alternative Ending #2":"Duck tales, oooo ooooo!"})
+            self.Endings.update({"Alternative Ending #8":"Duck tales, oooo ooooo!"})
             sys.exit(f'''\n{self.username}, the bomb is intact, you didn't get the treasure, but hey, the ducks are nice??\nCan you get out of here though?\n
             Thank you for playing my game!^_^
             {self.Endings}''')
         else:
             print("Hmmmmmmmm, nothing seems to happen. Going back to main menu.\n")                            
                       
-    def admGive (self): #Admin command to add any object to Inventory, even ones that don´t exist.
+    def admGive (self): #Working. Admin command to add any object to Inventory, even ones that don´t exist.
         admCheck = input("STOP RIGHT THERE! ACCESS TO THIS PART IS FORBIDDEN (⌐■_■) .\nONLY THOSE WHO HAVE THE SECRET PASSPHRASE MY CONTINUE.\nENTER IT NOW IF YOU KNOW IT: ")
         if  admCheck == "GleebyDeeby":
             admAppend = input("\nAcces code granted, add any item you want to the Inventory: ")
@@ -247,11 +333,11 @@ If you don't know what items are here, please go back and use "Look":
 
 ###########################Function Box###########################
 
-def formatter (text): #Lazy way to bypass players not using the correct uppercase for Inventory objects.
+def formatter (text): #Lazy way to bypass players not using the correct uppercase for Inventory objects. Doesn't work properly with login items.
     capWordFormat = string.capwords(text)
     return capWordFormat
 
-def dice ():
+def dice (): #This could be better, i guess.
     face = random.choice(randList)
     print(f"The dice landed in {face}.")
     return face
@@ -274,7 +360,7 @@ def intro ():
     print('The machine activates and says:\n"Only a Leap Year will let you go forward, but many tries you have not, type carefully or nothing will remain of you": \n#########################################\n')
     time.sleep(0.5)
 
-def leapList (year): ##The leap year is now its own function.
+def leapList (year): ##Working. The leap year is now its own function.
     if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
         time.sleep(1)
         print (f"\nWow {myCommands.username}, you made it. The bomb has been deactivated, the door in front of you opens and reveals a treasure, one which has been sealed for centuries, lost in time.")
@@ -289,31 +375,31 @@ def leapList (year): ##The leap year is now its own function.
 
 def loginRewards (): #Working
     if datename == "Monday":
-        print(f'\033[1;37;40m Today is {datename}! Your reward is a "Bottle of Hornets!"\n༼ つ ◕_◕ ༽つ') #Color White
+        print(f'\033[1;37;40m Today is {datename}! Your reward is a "{loginBag[0]}!"\n༼ つ ◕_◕ ༽つ') #Color White
         inventory.append("Bottle Of Hornets!")
         return
     elif datename == "Tuesday":
-        print(f'\033[1;33m Today is {datename}! Your reward is a "Banana Phone!"\n༼ つ ◕_◕ ༽つ') #Color Yellow
+        print(f'\033[1;33m Today is {datename}! Your reward is a "{loginBag[1]}!"\n༼ つ ◕_◕ ༽つ') #Color Yellow
         inventory.append("Banana Phone!")
         return
     elif datename == "Wednesday":
-        print(f'\033[1;32m Today is {datename}! Your reward is a "Lightbulb with a Flower!"\n༼ つ ◕_◕ ༽つ') #Color Green
+        print(f'\033[1;32m Today is {datename}! Your reward is a "{loginBag[2]}!"\n༼ つ ◕_◕ ༽つ') #Color Green
         inventory.append("Lightbulb With A Flower!")
         return
     elif datename == "Thursday":
-        print(f'\033[1;31m Today is {datename}! Your reward is a "Claymore!"\n༼ つ ◕_◕ ༽つ') #Color Red
+        print(f'\033[1;31m Today is {datename}! Your reward is a "{loginBag[3]}!"\n༼ つ ◕_◕ ༽つ') #Color Red
         inventory.append("Claymore!")
         return
     elif datename == "Friday":
-        print(f'\033[1;36m Today is {datename}! Your reward is a "Fax Machine!"\n༼ つ ◕_◕ ༽つ') #Color Cyan
+        print(f'\033[1;36m Today is {datename}! Your reward is a "{loginBag[4]}!"\n༼ つ ◕_◕ ༽つ') #Color Cyan
         inventory.append("Fax Machine!")
         return
     elif datename == "Saturday":
-        print(f'\033[1;34m Today is {datename}! Your reward is a "Blue Sea Dragon!"\n༼ つ ◕_◕ ༽つ') #Color Blue
+        print(f'\033[1;34m Today is {datename}! Your reward is a "{loginBag[5]}!"\n༼ つ ◕_◕ ༽つ') #Color Blue
         inventory.append("Blue Sea Dragon!")
         return
     elif datename == "Sunday":
-        print(f'\033[1;35m Today is {datename}! Your reward is a "Armored Core"\n༼ つ ◕_◕ ༽つ') #Color Purple
+        print(f'\033[1;35m Today is {datename}! Your reward is a "{loginBag[6]}"\n༼ つ ◕_◕ ༽つ') #Color Purple
         inventory.append("Armored Core")
         return
 
@@ -355,7 +441,7 @@ Available actions: Look, Type, Sleep, Grab, Eat, Drink, Use, Inventory, Exit: \n
             time.sleep(0.5)
             continue
         elif actMenu == "Exit":
-            myCommands.Endings.update({"Bad Ending #2":"You let the bomb alone :("}) 
+            myCommands.Endings.update({"Bad Ending #10":"You let the bomb alone :("}) 
             sys.exit(f"\nThank you so much {myCommands.username} for playing my game!\n{myCommands.Endings}")
         else:
             print(f"\nSorry, i couldn't understand you {myCommands.username}, please choose one of the available actions.\n")   
@@ -387,11 +473,11 @@ def mainBomb (): #Working
                 counter -= 1
                 print(f"Lady Luck is about to abandon you, you only have {counter} chance left!")
                 leapList(int(input("""What number will you type? I ask only for a year that it is a Leap Year: """)))    
-                myCommands.Endings.update({"Bad Ending #1":"You are dead, dead, dead."})
+                myCommands.Endings.update({"Bad Ending #2":"You are dead, dead, dead."})
                 sys.exit(f"""Your destiny has been sealed, you've been left on your own, like a Rainbow in the Dark. Bomb activated. Exploding now. (⊙_⊙;)
                 {myCommands.Endings} Leap years appear every 4 years or something, i don't know man.""")                
         except Exception:
-            myCommands.Endings.update({"Error Ending #1":"Man, why don't you want to type an Integer?"})
+            myCommands.Endings.update({"Error Ending #9":"Man, why don't you want to type an Integer?"})
             print (f"I only ask for numbers, nothing more, nothing else.\n")
             if counter == 0:
                 print(f"Game is closing, you run out of chances.\n{myCommands.Endings}")         
