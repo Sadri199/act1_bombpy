@@ -9,6 +9,7 @@ For now this version is terminal only, but im planning to make updates from time
 
 This entire thing was done in Python 3.12.5, it should work in older versions but i haven't tested it. 
 
+**[Link to Version 2.0 log](ver2.0.md)**
 
 ## Installation
 
@@ -55,3 +56,5 @@ Here, you can either:
 - Everything else by me, Adrian Satriani.
 
 Enjoy!
+
+
