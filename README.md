@@ -54,6 +54,7 @@ Here, you can either:
 ## Credits
 
 - Funny gif taken from Giphy "https://giphy.com/gifs/animals-internet-computer-58QYcMsKz9xiSXtF9d", the user is "@TheXandereVamp".
+- PyInstaller that help with making the .exe, more information about them at "https://pyinstaller.org/en/stable/".
 - Everything else by me, Adrian Satriani.
 
 Enjoy!
