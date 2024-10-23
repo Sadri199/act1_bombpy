@@ -9,7 +9,7 @@ For now this version is terminal only, but im planning to make updates from time
 
 This entire thing was done in Python 3.12.5, it should work in older versions but i haven't tested it. 
 
-**[Link to Version 2.0 log](ver2.0.md)**
+**[Link to Version 2.0.1 log](ver2.0.1.md)**
 
 ## Installation
 
@@ -37,6 +37,7 @@ It looks like this:
 
 ![capture5](https://github.com/user-attachments/assets/dee3d261-99fb-498c-83e3-e211cf069df6)
 
+Or, if you want, now this entire stuff is available as an .exe file. Just download / clone this entire project, check the folder "Executable v1.0" and open the file "exec.exe". I promise it's not a Virus.
 
 ## Execution
 
